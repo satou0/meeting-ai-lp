@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  .dark {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-paper font-body text-slate-700 dark:bg-ink dark:text-slate-300;
+  }
+
+  ::selection {
+    @apply bg-voice/20 text-slate-900 dark:text-white;
+  }
+
+  /* キーボードフォーカスを常に可視化 */
+  :focus-visible {
+    @apply outline-none ring-2 ring-voice ring-offset-2 ring-offset-paper dark:ring-offset-ink;
+  }
+}
+
+@layer components {
+  .section {
+    @apply mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 md:py-28;
+  }
+
+  /* 会議タイムライン風の見出しラベル（モノスペース＋タイムスタンプ） */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-mono text-xs tracking-widest text-speaker;
+  }
+
+  .heading {
+    @apply mt-4 font-display text-3xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white sm:text-4xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-voice px-6 py-3.5 font-display text-base font-bold text-white shadow-card transition hover:-translate-y-0.5 hover:bg-[#5b4be0] active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 font-display text-base font-bold text-slate-800 transition hover:border-voice hover:text-voice dark:border-ink-line dark:bg-ink-card dark:text-slate-200 dark:hover:border-voice dark:hover:text-white;
+  }
+
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-card dark:border-ink-line dark:bg-ink-card dark:shadow-card-dark;
+  }
+}
+
+/* スクロールリビール（Revealコンポーネントが .is-visible を付与） */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* モーション低減設定を尊重 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-wave,
+  .animate-fade-up,
+  .animate-caret-blink {
+    animation: none !important;
+  }
+}
