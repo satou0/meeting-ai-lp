@@ -24,7 +24,7 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://meetingai.example.com";
+const siteUrl = "https://meeting-ai-lp.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
